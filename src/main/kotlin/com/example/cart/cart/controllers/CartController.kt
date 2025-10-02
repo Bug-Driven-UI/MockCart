@@ -128,9 +128,7 @@ class CartController {
     }
 
     @PostMapping("/cart/set-all-items-selected")
-    fun setAllItemsSelected(
-        @RequestBody request: SelectRequest,
-    ): Cart {
+    fun setAllItemsSelected(@RequestBody request: SelectRequest, ): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
                 group.copy(
@@ -144,16 +142,13 @@ class CartController {
     }
 
     @PostMapping("/cart/set-store-items-selected")
-    fun setStoreItemsSelected(
-        @RequestParam storeId: String,
-        @RequestParam isSelected: Boolean,
-    ): Cart {
+    fun setStoreItemsSelected(@RequestBody request: SelectStoreRequest): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
-                if (group.storeId == storeId) {
+                if (group.storeId == request.storeId) {
                     group.copy(
                         items = group.items.map { item ->
-                            item.copy(isSelected = isSelected)
+                            item.copy(isSelected = request.isSelected)
                         }
                     )
                 } else {
