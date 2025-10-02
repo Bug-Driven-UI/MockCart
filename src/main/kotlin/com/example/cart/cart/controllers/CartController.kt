@@ -92,28 +92,25 @@ class CartController {
     }
 
     @PostMapping("/cart/add-favourite")
-    fun addFavourite(@RequestParam itemId: String): Set<String> {
-        favouriteItemIds.add(itemId)
+    fun addFavourite(@RequestBody request: IdRequest): Set<String> {
+        favouriteItemIds.add(request.itemId)
         return favouriteItemIds
     }
 
     @DeleteMapping("/cart/remove-favourite")
-    fun removeFavourite(@RequestParam itemId: String): Set<String> {
-        favouriteItemIds.remove(itemId)
+    fun removeFavourite(@RequestBody request: IdRequest): Set<String> {
+        favouriteItemIds.remove(request.itemId)
         return favouriteItemIds
     }
 
     @PostMapping("/cart/set-item-selected")
-    fun setItemSelected(
-        @RequestParam itemId: String,
-        @RequestParam isSelected: Boolean,
-    ): Cart {
+    fun setItemSelected(@RequestBody request: SelectItemRequest): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
                 group.copy(
                     items = group.items.map { item ->
-                        if (item.id == itemId) {
-                            item.copy(isSelected = isSelected)
+                        if (item.id == request.itemId) {
+                            item.copy(isSelected = request.isSelected)
                         } else {
                             item
                         }
@@ -126,13 +123,13 @@ class CartController {
 
     @PostMapping("/cart/set-all-items-selected")
     fun setAllItemsSelected(
-        @RequestParam isSelected: Boolean,
+        @RequestBody request: SelectRequest,
     ): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
                 group.copy(
                     items = group.items.map { item ->
-                        item.copy(isSelected = isSelected)
+                        item.copy(isSelected = request.isSelected)
                     }
                 )
             }
@@ -187,28 +184,20 @@ class CartController {
     }
 
     @PostMapping("/cart/add-item")
-    fun addItem(
-        @RequestParam storeId: String,
-        @RequestParam itemId: String,
-        @RequestParam itemName: String,
-        @RequestParam imageUrl: String,
-        @RequestParam baseItemPrice: Double,
-        @RequestParam quantity: Int,
-        @RequestParam itemDiscountPercent: Double
-    ): Cart {
+    fun addItem(@RequestBody request: AddItemRequest): Cart {
         val newItem = CartItem(
-            id = itemId,
+            id = request.itemId,
             isSelected = true,
-            itemName = itemName,
-            imageUrl = imageUrl,
-            baseItemPrice = baseItemPrice,
-            quantity = quantity,
-            itemDiscountPercent = itemDiscountPercent
+            itemName = request.itemName,
+            imageUrl = request.imageUrl,
+            baseItemPrice = request.baseItemPrice,
+            quantity = request.quantity,
+            itemDiscountPercent = request.itemDiscountPercent
         )
 
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
-                if (group.storeId == storeId) {
+                if (group.storeId == request.storeId) {
                     group.copy(items = group.items + newItem)
                 } else {
                     group
@@ -220,11 +209,11 @@ class CartController {
     }
 
     @DeleteMapping("/cart/remove-item")
-    fun removeItem(@RequestParam itemId: String): Cart {
+    fun removeItem(@RequestBody request: IdRequest): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
                 group.copy(
-                    items = group.items.filter { it.id != itemId }
+                    items = group.items.filter { it.id != request.itemId }
                 )
             }.filter { it.items.isNotEmpty() }
         )
