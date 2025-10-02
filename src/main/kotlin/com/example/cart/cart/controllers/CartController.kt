@@ -19,6 +19,7 @@ class CartController {
                 items = listOf(
                     CartItem(
                         id = "item-1",
+                        isSelected = true,
                         itemName = "Coding with GPT",
                         imageUrl = "https://raw.githubusercontent.com/denitdao/o-rly-collection/refs/heads/main/public/book_covers/coding-with-gpt.jpeg",
                         baseItemPrice = 25.99,
@@ -27,6 +28,7 @@ class CartController {
                     ),
                     CartItem(
                         id = "item-2",
+                        isSelected = true,
                         itemName = "Z-Index book",
                         imageUrl = "https://www.designer-daily.com/wp-content/uploads/2017/10/fGsXd.jpg",
                         baseItemPrice = 79.99,
@@ -35,6 +37,7 @@ class CartController {
                     ),
                     CartItem(
                         id = "item-3",
+                        isSelected = true,
                         itemName = "Procrastination: The definitive guide",
                         imageUrl = "https://boyter.org/static/books/5.png",
                         baseItemPrice = 29.99,
@@ -51,6 +54,7 @@ class CartController {
                 items = listOf(
                     CartItem(
                         id = "item-4",
+                        isSelected = true,
                         itemName = "Xbox 720",
                         imageUrl = "https://jbreaker.ru/images/stories/pics/adv/xbox-720.jpg",
                         baseItemPrice = 499.99,
@@ -59,6 +63,7 @@ class CartController {
                     ),
                     CartItem(
                         id = "item-5",
+                        isSelected = true,
                         itemName = "IPhone 20",
                         imageUrl = "https://pbs.twimg.com/media/E-m8s9LWUAY3LW-.jpg:large",
                         baseItemPrice = 999.99,
@@ -98,6 +103,64 @@ class CartController {
         return favouriteItemIds
     }
 
+    @PostMapping("/cart/set-item-selected")
+    fun setItemSelected(
+        @RequestParam itemId: String,
+        @RequestParam isSelected: Boolean,
+    ): Cart {
+        cart = cart.copy(
+            itemGroups = cart.itemGroups.map { group ->
+                group.copy(
+                    items = group.items.map { item ->
+                        if (item.id == itemId) {
+                            item.copy(isSelected = isSelected)
+                        } else {
+                            item
+                        }
+                    }
+                )
+            }
+        )
+        return cart
+    }
+
+    @PostMapping("/cart/set-all-items-selected")
+    fun setAllItemsSelected(
+        @RequestParam isSelected: Boolean,
+    ): Cart {
+        cart = cart.copy(
+            itemGroups = cart.itemGroups.map { group ->
+                group.copy(
+                    items = group.items.map { item ->
+                        item.copy(isSelected = isSelected)
+                    }
+                )
+            }
+        )
+        return cart
+    }
+
+    @PostMapping("/cart/set-store-items-selected")
+    fun setStoreItemsSelected(
+        @RequestParam storeId: String,
+        @RequestParam isSelected: Boolean,
+    ): Cart {
+        cart = cart.copy(
+            itemGroups = cart.itemGroups.map { group ->
+                if (group.storeId == storeId) {
+                    group.copy(
+                        items = group.items.map { item ->
+                            item.copy(isSelected = isSelected)
+                        }
+                    )
+                } else {
+                    group
+                }
+            }
+        )
+        return cart
+    }
+
     @PostMapping("/cart/update-item-quantity")
     fun updateItemQuantity(
         @RequestParam itemId: String,
@@ -135,6 +198,7 @@ class CartController {
     ): Cart {
         val newItem = CartItem(
             id = itemId,
+            isSelected = true,
             itemName = itemName,
             imageUrl = imageUrl,
             baseItemPrice = baseItemPrice,
