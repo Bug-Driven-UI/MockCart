@@ -3,7 +3,13 @@ package com.example.cart.cart.controllers
 import com.example.cart.cart.model.Cart
 import com.example.cart.cart.model.CartItem
 import com.example.cart.cart.model.CartStoreItemsGroup
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1")
@@ -159,19 +165,16 @@ class CartController {
     }
 
     @PostMapping("/cart/update-item-quantity")
-    fun updateItemQuantity(
-        @RequestParam itemId: String,
-        @RequestParam quantity: Int
-    ): Cart {
+    fun updateItemQuantity(@RequestBody request: UpdateItemQuantityRequest): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
                 group.copy(
                     items = group.items.mapNotNull { item ->
-                        if (item.id == itemId) {
-                            if (quantity <= 0) {
+                        if (item.id == request.itemId) {
+                            if (request.quantity <= 0) {
                                 null
                             } else {
-                                item.copy(quantity = quantity)
+                                item.copy(quantity = request.quantity)
                             }
                         } else {
                             item
