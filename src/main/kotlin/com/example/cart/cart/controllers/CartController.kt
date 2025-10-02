@@ -128,7 +128,7 @@ class CartController {
     }
 
     @PostMapping("/cart/set-all-items-selected")
-    fun setAllItemsSelected(@RequestBody request: SelectRequest, ): Cart {
+    fun setAllItemsSelected(@RequestBody request: SelectRequest): Cart {
         cart = cart.copy(
             itemGroups = cart.itemGroups.map { group ->
                 group.copy(
