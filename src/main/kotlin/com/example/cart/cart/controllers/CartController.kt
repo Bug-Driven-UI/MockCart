@@ -159,6 +159,16 @@ class CartController {
         return cart
     }
 
+    @GetMapping("/cart/get-selected-ids")
+    fun getSelectedIds(): SelectedIds {
+        return cart.itemGroups.flatMap { group ->
+            group.items
+                .filter { it.isSelected }
+                .map { it.id }
+        }
+            .let { SelectedIds(it.toSet()) }
+    }
+
     @PostMapping("/cart/update-item-quantity")
     fun updateItemQuantity(@RequestBody request: UpdateItemQuantityRequest): Cart {
         cart = cart.copy(
