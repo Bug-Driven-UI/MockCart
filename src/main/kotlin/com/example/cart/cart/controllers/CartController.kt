@@ -206,6 +206,20 @@ class CartController {
         return cart
     }
 
+    @DeleteMapping("/cart/remove-list")
+    fun removeItems(@RequestBody request: IdsRequest): Cart {
+        cart = cart.copy(
+            itemGroups = cart.itemGroups.map { group ->
+                group.copy(
+                    items = group.items.filter { !request.itemIds.contains(it.id) }
+                )
+
+            }.filter { it.items.isNotEmpty() }
+        )
+
+        return cart
+    }
+
     @DeleteMapping("/cart/remove-item")
     fun removeItem(@RequestBody request: IdRequest): Cart {
         cart = cart.copy(
