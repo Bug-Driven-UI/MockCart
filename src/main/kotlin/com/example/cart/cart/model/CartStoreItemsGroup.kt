@@ -6,4 +6,5 @@ data class CartStoreItemsGroup(
     val storeRating: Double,
     val storeReviewsCount: Int,
     val items: List<CartItem>,
+    val recommendedItems: List<RecommendedItem>,
 )
