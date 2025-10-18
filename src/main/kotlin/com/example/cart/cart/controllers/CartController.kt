@@ -13,21 +13,13 @@ import java.util.*
 @RequestMapping("/api/v1")
 class CartController {
 
-    private fun Cart.formatForOutput(): Cart = copy(
-        itemGroups = itemGroups.map { group ->
-            group.copy(
-                recommendedItems = group.recommendedItems.takeIf { group.items.size == 2 } ?: emptyList(),
-            )
-        }
-    )
-
     @GetMapping("/cart")
     fun getCart(): Cart {
         return cart.copy(
             itemGroups = cart.itemGroups.filter {
                 it.items.isNotEmpty()
             },
-        ).formatForOutput()
+        )
     }
 
     @GetMapping("/favourites")
@@ -62,7 +54,7 @@ class CartController {
                 )
             }
         )
-        return cart.formatForOutput()
+        return cart
     }
 
     @PostMapping("/cart/set-all-items-selected")
@@ -76,7 +68,7 @@ class CartController {
                 )
             }
         )
-        return cart.formatForOutput()
+        return cart
     }
 
     @PostMapping("/cart/set-store-items-selected")
@@ -94,7 +86,7 @@ class CartController {
                 }
             }
         )
-        return cart.formatForOutput()
+        return cart
     }
 
     @GetMapping("/cart/get-selected-ids")
@@ -126,7 +118,7 @@ class CartController {
                 )
             }.filter { it.items.isNotEmpty() }
         )
-        return cart.formatForOutput()
+        return cart
     }
 
     @PostMapping("/cart/add-item")
@@ -151,7 +143,7 @@ class CartController {
             }
         )
 
-        return cart.formatForOutput()
+        return cart
     }
 
     @DeleteMapping("/cart/remove-list")
@@ -165,7 +157,7 @@ class CartController {
             }.filter { it.items.isNotEmpty() }
         )
 
-        return cart.formatForOutput()
+        return cart
     }
 
     @DeleteMapping("/cart/remove-item")
@@ -177,13 +169,13 @@ class CartController {
                 )
             }.filter { it.items.isNotEmpty() }
         )
-        return cart.formatForOutput()
+        return cart
     }
 
     @DeleteMapping("/cart/clear")
     fun clearCart(): Cart {
         cart = cart.copy(itemGroups = emptyList())
-        return cart.formatForOutput()
+        return cart
     }
 
     @PostMapping("/cart/add-store")
@@ -210,7 +202,7 @@ class CartController {
             itemGroups = cart.itemGroups + newStore
         )
 
-        return cart.formatForOutput()
+        return cart
     }
 
     @DeleteMapping("/cart/remove-store")
@@ -218,7 +210,7 @@ class CartController {
         cart = cart.copy(
             itemGroups = cart.itemGroups.filter { it.storeId != storeId }
         )
-        return cart.formatForOutput()
+        return cart
     }
 
     @PostMapping("/cart/add-recommended-item")
@@ -244,6 +236,6 @@ class CartController {
                 }
             }
         )
-        return cart.formatForOutput()
+        return cart
     }
 }
