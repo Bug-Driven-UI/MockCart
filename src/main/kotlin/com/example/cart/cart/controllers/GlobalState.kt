@@ -16,28 +16,28 @@ object GlobalState {
     val recommededItemsPool = listOf(
         RecommendedItem(
             id = "recitem-1",
-            itemName = "Samsung Galaxy S24 Ultra Silicone Cover Жёлтый",
+            itemName = "Samsung Galaxy S24 Ultra\nSilicone Cover Жёлтый",
             imageUrl = "https://guerteltier.eu/cdn/shop/files/etui-silikonowe-samsung-galaxy-s24-ultra-yellow-00.jpg?v=1706275383&width=1000",
             baseItemPrice = 3000.0,
             itemDiscountPercent = 2.0,
         ),
         RecommendedItem(
             id = "recitem-2",
-            itemName = "Samsung Galaxy S24 Ultra Anti-reflecting Screen Protector",
+            itemName = "Samsung Galaxy S24 Ultra\nAnti-reflecting Screen Protector",
             imageUrl = "https://ae01.alicdn.com/kf/S77c6367adffd44278503e91d239989e8q.jpg",
             baseItemPrice = 1950.0,
             itemDiscountPercent = 0.0,
         ),
         RecommendedItem(
             id = "recitem-3",
-            itemName = "Samsung Galaxy Z Flip 7 Синий",
+            itemName = "Samsung Galaxy Z Flip 7\nСиний",
             imageUrl = "https://platform.theverge.com/wp-content/uploads/sites/2/2025/07/257866_Samsung_Galaxy_Z_Flip_7_review_AJohnson_0004.jpg?quality=90&strip=all&crop=16.675,0,66.65,100",
             baseItemPrice = 79000.0,
             itemDiscountPercent = 10.0,
         ),
         RecommendedItem(
             id = "recitem-4",
-            itemName = "Samsung Galaxy S25 Ultra 12/512 Титановый Розовый",
+            itemName = "Samsung Galaxy S25 Ultra\n12/512 Титановый Розовый",
             imageUrl = "https://image.cnnturk.com/i/cnnturk/75/740x416/6704df90031ae244b136777a.jpg",
             baseItemPrice = 120000.0,
             itemDiscountPercent = 10.0,
@@ -45,20 +45,20 @@ object GlobalState {
         RecommendedItem(
             id = "recitem-5",
             itemName = "Samsung Galaxy SmartTag",
-            imageUrl = "https://upload.wikimedia.org/wikipedia/commons/3/3d/Samsung_Galaxy_SmartTag.jpg",
+            imageUrl = "https://i.blogs.es/7bfdfd/img_8372/450_1000.jpg",
             baseItemPrice = 3000.0,
             itemDiscountPercent = 5.0,
         ),
         RecommendedItem(
             id = "recitem-6",
-            itemName = "Apple Зарядное устройство Magsafe 25W",
+            itemName = "Apple Зарядное устройство\nMagsafe 25W",
             imageUrl = "https://photos5.appleinsider.com/gallery/61034-125867-25W-MagSafe-Box-xl.jpg",
             baseItemPrice = 5500.0,
             itemDiscountPercent = 10.0,
         ),
         RecommendedItem(
             id = "recitem-7",
-            itemName = "iPhone 17 Pro Max Bare Skin Case Saddle Brown",
+            itemName = "iPhone 17 Pro Max Bare\nSkin Case Saddle Brown",
             imageUrl = "https://www.bare-cases.com/cdn/shop/files/Bare_Skin_Case_for_iPhone_17_Pro_Max_-_Leather_Case_with_Camera_Control_for_iPhone_17_Pro_Max_-_Saddle_Brown_bb389a25-eff9-4dae-b8fb-162162e1cbbb.jpg?v=1758250202&width=2048",
             baseItemPrice = 8000.0,
             itemDiscountPercent = 32.0,
@@ -111,7 +111,7 @@ object GlobalState {
                         itemName = "Samsung Galaxy Watch 8 Classic",
                         imageUrl = "https://rukminim2.flixcart.com/image/480/360/cms-rpd-img/7fa540318e7242ecbb7212d819ff2f02_199c2abd62a_1.jpg.jpeg?q=90",
                         baseItemPrice = 32999.00,
-                        quantity = 3,
+                        quantity = 1,
                         itemDiscountPercent = 15.0,
                     )
                 ),
@@ -129,7 +129,7 @@ object GlobalState {
                         itemName = "Apple MacBook Pro 14\" (M4, 16 Gb, 512Gb SSD)",
                         imageUrl = "https://9to5mac.com/wp-content/uploads/sites/6/2024/06/MacBook-Pro-M4.jpg?quality=82&strip=all&w=1600",
                         baseItemPrice = 120999.0,
-                        quantity = 1,
+                        quantity = 4,
                         itemDiscountPercent = 5.0,
                     ),
                     CartItem(
@@ -137,7 +137,7 @@ object GlobalState {
                         isSelected = true,
                         itemName = "Apple iPhone 17 Pro Max 512 GB",
                         imageUrl = "https://shop.a1.by/assets/image/iphone/iphone-17-pro/carousel-1/img-1.jpg",
-                        baseItemPrice = 999.99,
+                        baseItemPrice = 130000.00,
                         quantity = 1,
                         itemDiscountPercent = 10.0,
                     )
